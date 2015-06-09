@@ -1,8 +1,7 @@
 package screen
 
-var (
-	frameBuffer      *[totalMax]uint16
-	cursorX, cursorY uint8
+import (
+	. "gotype"
 )
 
 const (
@@ -10,7 +9,11 @@ const (
 	maxX            = 80
 	maxY            = 25
 	totalMax        = maxX * maxY
-	whiteOnBlack    = 0x07
+)
+
+var (
+	frameBuffer      *[totalMax]uint16
+	cursorX, cursorY uint8
 )
 
 //extern __unsafe_get_addr
@@ -21,20 +24,16 @@ func Init() {
 	cursorY = 0
 	//Get video memory
 	frameBuffer = getAddr(frameBufferAddr)
+	clear()
 }
 
 //Clear screen
-func Clear() {
+func clear() {
 	for i := 0; i < totalMax; i++ {
 		frameBuffer[i] = 0
 	}
 	cursorX = 0
 	cursorY = 0
-}
-
-func SetCursor(x, y uint8) {
-	cursorX = x
-	cursorY = y
 }
 
 func scroll() {
@@ -77,8 +76,12 @@ func putChar(c byte) {
 	scroll()
 }
 
-func PrintStr(s string) {
-	for i := 0; i < len(s); i++ {
-		putChar(s[i])
+func PrintString(str String) {
+	for i := uint32(0); i < str.Length; i++ {
+		putChar(str.Str[i])
 	}
+}
+
+func PrintNl() {
+	putChar('\n')
 }

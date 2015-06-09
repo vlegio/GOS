@@ -1,3 +1,5 @@
 kernel
 *.o
 *.gox
+
+bck/

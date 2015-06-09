@@ -23,25 +23,12 @@ mboot:
 
 [GLOBAL start]
 extern go.kernel.Load
-
-global __go_runtime_error ;gccgo compability
-global __go_register_gc_roots ;gccgo compability
-global __unsafe_get_addr ;convert uint32 to pointer
-
-__unsafe_get_addr:
-  push ebp
-  mov ebp, esp
-  mov eax, [ebp+8]
-  mov esp, ebp
-  pop ebp
-  ret
+extern go.screen.Init
 
 start:
   push  ebx
   cli
+  call  go.screen.Init
   call  go.kernel.Load
   jmp   $
 
-__go_register_gc_roots:
-__go_runtime_error:
-  ret

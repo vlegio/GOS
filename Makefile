@@ -1,5 +1,4 @@
-SOURCES=multiboot.o screen.go.o screen.gox kernel.go.o
-
+SOURCES=multiboot.o gotype.go.o gotype.gox screen.go.o screen.gox kernel.go.o memory.go.o memory.gox runtime.o runtime.go.o runtime.gox 
 GOFLAGS= -nostdlib -nostdinc -fno-stack-protector -fno-split-stack -static -m32 -g -I.
 GO=gccgo
 ASFLAGS= -felf
